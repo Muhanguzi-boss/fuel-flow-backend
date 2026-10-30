@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,10 +33,27 @@ public class DeliveryController {
         this.deliveryService = deliveryService;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody Delivery delivery) {
-        return new ResponseEntity<>(deliveryService.save(delivery), HttpStatus.CREATED);
+  @PostMapping("/save")
+public ResponseEntity<String> save(@RequestBody Delivery delivery) {
+    String message = deliveryService.save(delivery);
+    if (message.equals("Delivery date cannot be in the past")) {
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    } else if (message.equals("Attendant already receives a delivery on that date")) {
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
+    return new ResponseEntity<>(message, HttpStatus.CREATED);
+}
+
+@PatchMapping("/{id}/status")
+public ResponseEntity<String> changeStatus(@PathVariable UUID id, @RequestParam DeliveryStatus status) {
+    String message = deliveryService.changeStatus(id, status);
+    if (message.endsWith("does not exist")) {
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    } else if (message.startsWith("Cannot change status")) {
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(message, HttpStatus.OK);
+}
 
     @GetMapping("/all")
     public ResponseEntity<List<Delivery>> getAll() {

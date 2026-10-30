@@ -9,8 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import webtech.mid.fuel_flow.model.Attendant;
+import webtech.mid.fuel_flow.model.Pump;
 @Repository
 public interface AttendantRepository extends JpaRepository<Attendant, UUID>{
 @Query("SELECT DISTINCT a FROM Attendant a JOIN a.fuelTypes f WHERE LOWER(f.name) = LOWER(:name)")
 List<Attendant> findByFuelTypeName(@Param("name") String name);
+boolean existsByPump(Pump pump);
 }

@@ -21,10 +21,26 @@ public DeliveryService(DeliveryRepository deliveryRepository){
     this.deliveryRepository = deliveryRepository;
 }
 
-    public String save(Delivery delivery) {
-        deliveryRepository.save(delivery);
-        return "Delivery saved successfully";
+  public String save(Delivery delivery) {
+    if (delivery.getDeliveryDate().isBefore(LocalDate.now())) {
+        return "Delivery date cannot be in the past";
     }
+    if (isAttendantBooked(delivery)) {
+        return "Attendant already receives a delivery on that date";
+    }
+    delivery.setId(null);
+    delivery.setStatus(DeliveryStatus.ORDERED);
+    deliveryRepository.save(delivery);
+    return "Delivery saved successfully";
+}
+
+public boolean isAttendantBooked(Delivery delivery) {
+    if (delivery.getAttendant() == null || delivery.getAttendant().getId() == null) {
+        return false;
+    }
+    return deliveryRepository.existsByAttendantIdAndDeliveryDateAndStatusNot(
+            delivery.getAttendant().getId(), delivery.getDeliveryDate(), DeliveryStatus.CANCELLED);
+}
 
     public List<Delivery> getAll() {
         return deliveryRepository.findAll();
@@ -49,7 +65,6 @@ public List<Delivery> getBetween(LocalDate start, LocalDate end) {
         }
         Delivery existing = optional.get();
         existing.setDeliveryDate(delivery.getDeliveryDate());
-        existing.setStatus(delivery.getStatus());
         existing.setTruckPlate(delivery.getTruckPlate());
         existing.setOrderedLitres(delivery.getOrderedLitres());
         existing.setSupplier(delivery.getSupplier());
@@ -57,6 +72,27 @@ public List<Delivery> getBetween(LocalDate start, LocalDate end) {
         deliveryRepository.save(existing);
         return "Delivery updated successfully";
     }
+
+    public String changeStatus(UUID id, DeliveryStatus newStatus) {
+    Optional<Delivery> optional = deliveryRepository.findById(id);
+    if (optional.isEmpty()) {
+        return "The delivery with that id does not exist";
+    }
+    Delivery delivery = optional.get();
+    DeliveryStatus current = delivery.getStatus();
+    boolean allowed = false;
+    if (current == DeliveryStatus.ORDERED) {
+        allowed = newStatus == DeliveryStatus.DISPATCHED || newStatus == DeliveryStatus.CANCELLED;
+    } else if (current == DeliveryStatus.DISPATCHED) {
+        allowed = newStatus == DeliveryStatus.RECEIVED || newStatus == DeliveryStatus.CANCELLED;
+    }
+    if (!allowed) {
+        return "Cannot change status from " + current + " to " + newStatus;
+    }
+    delivery.setStatus(newStatus);
+    deliveryRepository.save(delivery);
+    return "Delivery status updated successfully";
+}
 
     public String delete(UUID id) {
         if (!deliveryRepository.existsById(id)) {

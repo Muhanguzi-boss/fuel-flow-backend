@@ -13,4 +13,5 @@ import webtech.mid.fuel_flow.model.DeliveryStatus;
 public interface DeliveryRepository extends JpaRepository<Delivery, UUID> {
 List<Delivery> findByStatusOrderByDeliveryDateAsc(DeliveryStatus status);
 List<Delivery> findByDeliveryDateBetweenOrderByDeliveryDateAsc(LocalDate start, LocalDate end);
+boolean existsByAttendantIdAndDeliveryDateAndStatusNot(UUID attendantId, LocalDate deliveryDate, DeliveryStatus status);
 }
