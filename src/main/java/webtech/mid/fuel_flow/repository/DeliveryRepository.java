@@ -27,4 +27,8 @@ List<Object[]> countByStatus();
         + "WHERE d.attendant.id = :attendantId AND d.deliveryDate = :date "
         + "AND d.status <> webtech.mid.fuel_flow.model.DeliveryStatus.RECEIVED")
 int cancelDay(@Param("attendantId") UUID attendantId, @Param("date") LocalDate date);
+
+long countByDeliveryDate(LocalDate deliveryDate);
+
+long countDeliveriesByStatus(DeliveryStatus status);
 }
