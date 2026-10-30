@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtech.mid.fuel_flow.model.Supplier;
+import webtech.mid.fuel_flow.service.AttendantService;
 import webtech.mid.fuel_flow.service.SupplierService;
 
 @RestController
 @RequestMapping("/api/suppliers")
 public class SupplierController {
 
-    private SupplierService supplierService;
-    public SupplierController(SupplierService supplierService){
+    private final SupplierService supplierService;
+    private final AttendantService attendantService;
+    public SupplierController(SupplierService supplierService, AttendantService attendantService){
         this.supplierService = supplierService;
+        this.attendantService = attendantService;
     }
 
     @PostMapping("/save")
@@ -50,6 +53,14 @@ public class SupplierController {
     @GetMapping("/by-company-name")
 public ResponseEntity<List<Supplier>> getByCompanyName(@RequestParam String companyName) {
     return new ResponseEntity<>(supplierService.getByCompanyName(companyName), HttpStatus.OK);
+}
+
+@GetMapping("/of-attendant/{attendantId}")
+public ResponseEntity<?> getByAttendant(@PathVariable UUID attendantId) {
+    if (!attendantService.existsById(attendantId)) {
+        return new ResponseEntity<>("The attendant with that id does not exist", HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(supplierService.getByAttendant(attendantId), HttpStatus.OK);
 }
 
     @PutMapping("/update/{id}")

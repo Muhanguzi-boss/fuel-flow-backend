@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtech.mid.fuel_flow.model.Attendant;
@@ -22,7 +23,7 @@ import webtech.mid.fuel_flow.service.AttendantService;
 @RequestMapping("/api/attendants")
 public class AttendantController {
 
-    private AttendantService attendantService;
+    private final AttendantService attendantService;
 
     public AttendantController(AttendantService attendantService){
         this.attendantService = attendantService;
@@ -46,6 +47,11 @@ public class AttendantController {
         }
         return new ResponseEntity<>("The attendant with that id does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/by-fuel-type")
+public ResponseEntity<List<Attendant>> getByFuelType(@RequestParam String name) {
+    return new ResponseEntity<>(attendantService.getByFuelType(name), HttpStatus.OK);
+}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody Attendant attendant) {

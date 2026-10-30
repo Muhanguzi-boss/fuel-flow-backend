@@ -31,6 +31,10 @@ public class SupplierService {
     return supplierRepository.findByCompanyNameIgnoreCaseOrderByContactNameAsc(companyName);
 }
 
+public List<Supplier> getByAttendant(UUID attendantId) {
+    return supplierRepository.findByAttendantId(attendantId);
+}
+
     public Optional<Supplier> getById(UUID id) {
         return supplierRepository.findById(id);
     }

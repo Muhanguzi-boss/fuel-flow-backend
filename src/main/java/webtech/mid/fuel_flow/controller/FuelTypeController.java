@@ -23,7 +23,7 @@ import webtech.mid.fuel_flow.service.FuelTypeService;
 @RequestMapping("/api/fuel-types")
 public class FuelTypeController {
 
-    private FuelTypeService fuelTypeService;
+    private final FuelTypeService fuelTypeService;
 
     public FuelTypeController(FuelTypeService fuelTypeService){
         this.fuelTypeService = fuelTypeService;
@@ -47,6 +47,11 @@ public class FuelTypeController {
         }
         return new ResponseEntity<>("The fuel type with that id does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/unused")
+public ResponseEntity<List<FuelType>> getUnused() {
+    return new ResponseEntity<>(fuelTypeService.getUnused(), HttpStatus.OK);
+}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody FuelType fuelType) {

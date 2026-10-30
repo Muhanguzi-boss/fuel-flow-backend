@@ -27,6 +27,10 @@ public FuelTypeService(FuelTypeRepository fuelTypeRepository){
         return fuelTypeRepository.findAll();
     }
 
+    public List<FuelType> getUnused() {
+    return fuelTypeRepository.findUnused();
+}
+
     public Optional<FuelType> getById(UUID id) {
         return fuelTypeRepository.findById(id);
     }

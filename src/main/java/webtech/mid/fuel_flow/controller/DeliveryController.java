@@ -26,7 +26,7 @@ import webtech.mid.fuel_flow.service.DeliveryService;
 @RequestMapping("/api/deliveries")
 public class DeliveryController {
 
-    private DeliveryService deliveryService;
+    private final DeliveryService deliveryService;
 
     public DeliveryController(DeliveryService deliveryService){
         this.deliveryService = deliveryService;

@@ -22,7 +22,7 @@ import webtech.mid.fuel_flow.service.PumpService;
 @RestController
 @RequestMapping("/api/pumps")
 public class PumpController {
-    private PumpService pumpService;
+    private final PumpService pumpService;
 
     public PumpController(PumpService pumpService){
         this.pumpService = pumpService;
@@ -46,6 +46,11 @@ public class PumpController {
         }
         return new ResponseEntity<>("The pump with that id does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/free")
+public ResponseEntity<List<Pump>> getFreePumps() {
+    return new ResponseEntity<>(pumpService.getFreePumps(), HttpStatus.OK);
+}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody Pump pump) {

@@ -27,6 +27,10 @@ public class PumpService {
         return pumpRepository.findAll();
     }
 
+    public List<Pump> getFreePumps() {
+    return pumpRepository.findFreePumps();
+}
+
     public Optional<Pump> getById(UUID id) {
         return pumpRepository.findById(id);
     }

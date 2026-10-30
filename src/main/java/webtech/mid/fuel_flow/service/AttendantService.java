@@ -30,6 +30,14 @@ public class AttendantService {
         return attendantRepository.findAll();
     }
 
+    public List<Attendant> getByFuelType(String name) {
+    return attendantRepository.findByFuelTypeName(name);
+}
+
+public boolean existsById(UUID id) {
+    return attendantRepository.existsById(id);
+}
+
     public Optional<Attendant> getById(UUID id) {
         return attendantRepository.findById(id);
     }
