@@ -11,14 +11,17 @@ import org.springframework.stereotype.Service;
 import webtech.mid.fuel_flow.model.Delivery;
 import webtech.mid.fuel_flow.model.DeliveryStatus;
 import webtech.mid.fuel_flow.repository.DeliveryRepository;
+import webtech.mid.fuel_flow.repository.TankOffloadRepository;
 
 @Service
 public class DeliveryService {
 
 private final DeliveryRepository deliveryRepository;
+private final TankOffloadRepository tankOffloadRepository;
 
-public DeliveryService(DeliveryRepository deliveryRepository){
+public DeliveryService(DeliveryRepository deliveryRepository, TankOffloadRepository tankOffloadRepository){
     this.deliveryRepository = deliveryRepository;
+    this.tankOffloadRepository = tankOffloadRepository;
 }
 
   public String save(Delivery delivery) {
@@ -94,11 +97,15 @@ public List<Delivery> getBetween(LocalDate start, LocalDate end) {
     return "Delivery status updated successfully";
 }
 
-    public String delete(UUID id) {
-        if (!deliveryRepository.existsById(id)) {
-            return "The delivery with that id does not exist";
-        }
-        deliveryRepository.deleteById(id);
-        return "Delivery deleted successfully";
+public String delete(UUID id) {
+    Optional<Delivery> optional = deliveryRepository.findById(id);
+    if (optional.isEmpty()) {
+        return "The delivery with that id does not exist";
     }
+    if (tankOffloadRepository.existsByDelivery(optional.get())) {
+        return "That delivery has tank offloads, delete them first";
+    }
+    deliveryRepository.deleteById(id);
+    return "Delivery deleted successfully";
+}
 }

@@ -88,12 +88,14 @@ public ResponseEntity<List<Delivery>> getBetween(@RequestParam String start, @Re
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id) {
-        String message = deliveryService.delete(id);
-        if (message.equals("Delivery deleted successfully")) {
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }
+@DeleteMapping("/delete/{id}")
+public ResponseEntity<String> delete(@PathVariable UUID id) {
+    String message = deliveryService.delete(id);
+    if (message.endsWith("does not exist")) {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    } else if (message.equals("That delivery has tank offloads, delete them first")) {
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
+    return new ResponseEntity<>(message, HttpStatus.OK);
+}
 }
