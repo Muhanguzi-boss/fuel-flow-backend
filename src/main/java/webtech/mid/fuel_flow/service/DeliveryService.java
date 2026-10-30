@@ -7,6 +7,8 @@ import java.util.UUID;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import jakarta.transaction.Transactional;
 import webtech.mid.fuel_flow.model.Delivery;
@@ -100,6 +102,10 @@ public List<Object[]> countByStatus() {
     delivery.setStatus(newStatus);
     deliveryRepository.save(delivery);
     return "Delivery status updated successfully";
+}
+
+public Page<Delivery> getPage(Pageable pageable){
+    return deliveryRepository.findAll(pageable);
 }
 
 public String delete(UUID id) {
