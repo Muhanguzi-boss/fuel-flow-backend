@@ -1,0 +1,1113 @@
+{
+  "info": {
+    "name": "FuelFlow Midterm",
+    "description": "FuelFlow backend, INSY 8322 mid-term. Student: Muhanguzi Boss, ID 27810. Variables hold the ids of the seed data; update them if you re-seed.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "A2 CRUD",
+      "item": [
+        {
+          "name": "A2 save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Fuel\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "201 Fuel type saved successfully"
+          }
+        },
+        {
+          "name": "A2 get all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/{{petrolId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "{{petrolId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get by id (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/{{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "{{randomId}}"
+              ]
+            },
+            "description": "404 The fuel type with that id does not exist"
+          }
+        },
+        {
+          "name": "A2 update (404)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/update/{{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "update",
+                "{{randomId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"X\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "A2 delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/fuel-types/delete/{{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "fuel-types",
+                "delete",
+                "{{randomId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get all pumps",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pumps/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "pumps",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get all attendants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendants/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendants",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get all suppliers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "A2 get all deliveries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "all"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "B1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers/by-company-name?companyName=sp rwanda",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers",
+            "by-company-name"
+          ],
+          "query": [
+            {
+              "key": "companyName",
+              "value": "sp rwanda"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "B2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/by-status?status=ORDERED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "by-status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "ORDERED"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "B3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/between?start=2026-10-01&end=2026-10-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "between"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2026-10-01"
+            },
+            {
+              "key": "end",
+              "value": "2026-10-31"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "C1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/attendants/by-fuel-type?name=diesel",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "attendants",
+            "by-fuel-type"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "diesel"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "C2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/pumps/free",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "pumps",
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "name": "C3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/fuel-types/unused",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "fuel-types",
+            "unused"
+          ]
+        }
+      }
+    },
+    {
+      "name": "C4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers/of-attendant/{{jeanId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers",
+            "of-attendant",
+            "{{jeanId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "D1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/save",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"deliveryDate\": \"2026-12-15\",\n  \"status\": \"RECEIVED\",\n  \"truckPlate\": \"RAB 111L\",\n  \"orderedLitres\": 5000,\n  \"supplier\": {\n    \"id\": \"{{sp004Id}}\"\n  },\n  \"attendant\": {\n    \"id\": \"{{ericId}}\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "201. Status is forced to ORDERED even though the body says RECEIVED. Run once per date (second run gives 409)."
+      }
+    },
+    {
+      "name": "D2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/{{orderedDeliveryId}}/status?status=DISPATCHED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "{{orderedDeliveryId}}",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "DISPATCHED"
+            }
+          ]
+        },
+        "description": "200 on the first run. Running again with DISPATCHED gives 400."
+      }
+    },
+    {
+      "name": "D3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/attendants/{{ericId}}/fuel-types/{{petrolId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "attendants",
+            "{{ericId}}",
+            "fuel-types",
+            "{{petrolId}}"
+          ]
+        },
+        "description": "200 first time, 409 afterwards"
+      }
+    },
+    {
+      "name": "D4",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/attendants/{{jeanId}}/pump?pumpNumber=4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "attendants",
+            "{{jeanId}}",
+            "pump"
+          ],
+          "query": [
+            {
+              "key": "pumpNumber",
+              "value": "4"
+            }
+          ]
+        },
+        "description": "200 first time. Then GET /api/pumps/free shows pump 1."
+      }
+    },
+    {
+      "name": "E1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/tank-offloads/save?deliveryId={{receivedDeliveryId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tank-offloads",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "deliveryId",
+              "value": "{{receivedDeliveryId}}"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tankName\": \"Diesel Tank 2\",\n  \"remarks\": \"Dipstick checked before and after\",\n  \"litres\": 8000\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "E2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tank-offloads/supplier/SP-004",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tank-offloads",
+            "supplier",
+            "SP-004"
+          ]
+        }
+      }
+    },
+    {
+      "name": "E3",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tank-offloads/delete/{{tankOffloadId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tank-offloads",
+            "delete",
+            "{{tankOffloadId}}"
+          ]
+        },
+        "description": "200 first time, 404 afterwards. Replace tankOffloadId with an id from GET /api/tank-offloads/all if needed."
+      }
+    },
+    {
+      "name": "F1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/stats/by-status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "stats",
+            "by-status"
+          ]
+        }
+      }
+    },
+    {
+      "name": "F2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/cancel-day?attendantId={{jeanId}}&date=2026-10-20",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "cancel-day"
+          ],
+          "query": [
+            {
+              "key": "attendantId",
+              "value": "{{jeanId}}"
+            },
+            {
+              "key": "date",
+              "value": "2026-10-20"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Bonus Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/dashboard/summary",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "dashboard",
+            "summary"
+          ]
+        },
+        "description": "200 {\"suppliers\":5,\"attendants\":3,\"freePumps\":1,\"deliveriesToday\":0,\"ordered\":3,\"tankOffloads\":4} (values depend on current data)"
+      }
+    },
+    {
+      "name": "Bonus Page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/deliveries/page?page=0&size=5&sort=deliveryDate,desc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "deliveries",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "deliveryDate,desc"
+            }
+          ]
+        },
+        "description": "200 Page<Delivery>: shows totalPages and totalElements, newest deliveryDate first"
+      }
+    },
+    {
+      "name": "Error cases (for the demo)",
+      "item": [
+        {
+          "name": "B1 error (no match)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/by-company-name?companyName=nobody",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "by-company-name"
+              ],
+              "query": [
+                {
+                  "key": "companyName",
+                  "value": "nobody"
+                }
+              ]
+            },
+            "description": "200 []"
+          }
+        },
+        {
+          "name": "C4 error",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/suppliers/of-attendant/{{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "suppliers",
+                "of-attendant",
+                "{{randomId}}"
+              ]
+            },
+            "description": "404 The attendant with that id does not exist"
+          }
+        },
+        {
+          "name": "D1 error (past date)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryDate\": \"2026-10-01\",\n  \"status\": \"RECEIVED\",\n  \"truckPlate\": \"RAB 111L\",\n  \"orderedLitres\": 5000,\n  \"supplier\": {\n    \"id\": \"{{sp004Id}}\"\n  },\n  \"attendant\": {\n    \"id\": \"{{ericId}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "400 Delivery date cannot be in the past"
+          }
+        },
+        {
+          "name": "D1 error (attendant booked)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryDate\": \"2026-11-10\",\n  \"status\": \"RECEIVED\",\n  \"truckPlate\": \"RAB 111L\",\n  \"orderedLitres\": 5000,\n  \"supplier\": {\n    \"id\": \"{{sp004Id}}\"\n  },\n  \"attendant\": {\n    \"id\": \"{{jeanId}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "409 Attendant already receives a delivery on that date"
+          }
+        },
+        {
+          "name": "D2 error",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{receivedDeliveryId}}/status?status=ORDERED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{receivedDeliveryId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ORDERED"
+                }
+              ]
+            },
+            "description": "400 Cannot change status from RECEIVED to ORDERED"
+          }
+        },
+        {
+          "name": "D2 error (404)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/{{randomId}}/status?status=DISPATCHED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "{{randomId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "DISPATCHED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D3 error",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendants/{{jeanId}}/fuel-types/{{petrolId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendants",
+                "{{jeanId}}",
+                "fuel-types",
+                "{{petrolId}}"
+              ]
+            },
+            "description": "409 The attendant already has that fuel type"
+          }
+        },
+        {
+          "name": "D4 error (taken)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendants/{{aliceId}}/pump?pumpNumber=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendants",
+                "{{aliceId}}",
+                "pump"
+              ],
+              "query": [
+                {
+                  "key": "pumpNumber",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "409 if pump 1 is taken (Jean still on pump 1). After D4 succeeded, use pumpNumber=4 instead."
+          }
+        },
+        {
+          "name": "D4 error (404)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/attendants/{{jeanId}}/pump?pumpNumber=9",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "attendants",
+                "{{jeanId}}",
+                "pump"
+              ],
+              "query": [
+                {
+                  "key": "pumpNumber",
+                  "value": "9"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "E1 error (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tank-offloads/save?deliveryId={{orderedDeliveryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tank-offloads",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "deliveryId",
+                  "value": "{{orderedDeliveryId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tankName\": \"Tank\",\n  \"remarks\": \"x\",\n  \"litres\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "400 Tank offloads are only for RECEIVED deliveries"
+          }
+        },
+        {
+          "name": "E1 error (404)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tank-offloads/save?deliveryId={{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tank-offloads",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "deliveryId",
+                  "value": "{{randomId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tankName\": \"Tank\",\n  \"remarks\": \"x\",\n  \"litres\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "E2 error (unknown code)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tank-offloads/supplier/SP-999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tank-offloads",
+                "supplier",
+                "SP-999"
+              ]
+            },
+            "description": "200 []"
+          }
+        },
+        {
+          "name": "E3 error (delivery has offloads)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/delete/{{receivedDeliveryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "delete",
+                "{{receivedDeliveryId}}"
+              ]
+            },
+            "description": "409 That delivery has tank offloads, delete them first"
+          }
+        },
+        {
+          "name": "E3 error (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tank-offloads/delete/{{randomId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tank-offloads",
+                "delete",
+                "{{randomId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "F2 error (nothing to cancel)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deliveries/cancel-day?attendantId={{randomId}}&date=2026-10-20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deliveries",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "attendantId",
+                  "value": "{{randomId}}"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-10-20"
+                }
+              ]
+            },
+            "description": "200 0 deliveries cancelled"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "petrolId",
+      "value": "da0ae0e3-8ffe-41e8-9a65-9be1b20fc8fb"
+    },
+    {
+      "key": "pump1Id",
+      "value": "8adcb04a-ec63-4ff1-b3ab-195b32ff1b2b"
+    },
+    {
+      "key": "jeanId",
+      "value": "4fbdd661-2d8c-40a4-858f-277c1d925762"
+    },
+    {
+      "key": "aliceId",
+      "value": "3dcdd3e1-50a3-4061-9de7-c33eb47675c3"
+    },
+    {
+      "key": "ericId",
+      "value": "70957576-43d6-4935-84ed-955c10d92ca6"
+    },
+    {
+      "key": "sp004Id",
+      "value": "3f69cd0c-9a30-4476-bd1b-a003350bb640"
+    },
+    {
+      "key": "receivedDeliveryId",
+      "value": "3b45c3c1-ec51-4354-94a1-422283b04d67"
+    },
+    {
+      "key": "orderedDeliveryId",
+      "value": "c65d627c-8b21-48d0-953f-01c2120775a4"
+    },
+    {
+      "key": "tankOffloadId",
+      "value": "c6c161c3-d453-46ff-8408-59555922a9c6"
+    },
+    {
+      "key": "randomId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}
