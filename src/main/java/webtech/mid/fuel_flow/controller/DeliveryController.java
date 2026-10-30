@@ -1,5 +1,6 @@
 package webtech.mid.fuel_flow.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webtech.mid.fuel_flow.model.Delivery;
+import webtech.mid.fuel_flow.model.DeliveryStatus;
 import webtech.mid.fuel_flow.service.DeliveryService;
 
 @RestController
@@ -47,6 +50,16 @@ public class DeliveryController {
         }
         return new ResponseEntity<>("The delivery with that id does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/by-status")
+public ResponseEntity<List<Delivery>> getByStatus(@RequestParam DeliveryStatus status) {
+    return new ResponseEntity<>(deliveryService.getByStatus(status), HttpStatus.OK);
+}
+
+@GetMapping("/between")
+public ResponseEntity<List<Delivery>> getBetween(@RequestParam String start, @RequestParam String end) {
+    return new ResponseEntity<>(deliveryService.getBetween(LocalDate.parse(start), LocalDate.parse(end)), HttpStatus.OK);
+}
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody Delivery delivery) {

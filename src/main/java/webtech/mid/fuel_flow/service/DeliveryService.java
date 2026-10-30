@@ -1,5 +1,6 @@
 package webtech.mid.fuel_flow.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import webtech.mid.fuel_flow.model.Delivery;
+import webtech.mid.fuel_flow.model.DeliveryStatus;
 import webtech.mid.fuel_flow.repository.DeliveryRepository;
 
 @Service
@@ -27,6 +29,14 @@ public DeliveryService(DeliveryRepository deliveryRepository){
     public List<Delivery> getAll() {
         return deliveryRepository.findAll();
     }
+
+    public List<Delivery> getByStatus(DeliveryStatus status) {
+    return deliveryRepository.findByStatusOrderByDeliveryDateAsc(status);
+}
+
+public List<Delivery> getBetween(LocalDate start, LocalDate end) {
+    return deliveryRepository.findByDeliveryDateBetweenOrderByDeliveryDateAsc(start, end);
+}
 
     public Optional<Delivery> getById(UUID id) {
         return deliveryRepository.findById(id);

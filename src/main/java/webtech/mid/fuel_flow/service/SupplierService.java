@@ -27,6 +27,10 @@ public class SupplierService {
         return supplierRepository.findAll();
     }
 
+    public List<Supplier> getByCompanyName(String companyName) {
+    return supplierRepository.findByCompanyNameIgnoreCaseOrderByContactNameAsc(companyName);
+}
+
     public Optional<Supplier> getById(UUID id) {
         return supplierRepository.findById(id);
     }
