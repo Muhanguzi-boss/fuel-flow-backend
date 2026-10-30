@@ -79,6 +79,17 @@ public ResponseEntity<List<Delivery>> getBetween(@RequestParam String start, @Re
     return new ResponseEntity<>(deliveryService.getBetween(LocalDate.parse(start), LocalDate.parse(end)), HttpStatus.OK);
 }
 
+@GetMapping("/stats/by-status")
+public ResponseEntity<List<Object[]>> countByStatus() {
+    return new ResponseEntity<>(deliveryService.countByStatus(), HttpStatus.OK);
+}
+
+
+@PatchMapping("/cancel-day")
+public ResponseEntity<String> cancelDay(@RequestParam UUID attendantId, @RequestParam String date) {
+    return new ResponseEntity<>(deliveryService.cancelDay(attendantId, LocalDate.parse(date)), HttpStatus.OK);
+}
+
     @PutMapping("/update/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody Delivery delivery) {
         String message = deliveryService.update(id, delivery);

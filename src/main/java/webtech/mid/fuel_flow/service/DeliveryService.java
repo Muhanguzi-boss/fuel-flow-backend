@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import webtech.mid.fuel_flow.model.Delivery;
 import webtech.mid.fuel_flow.model.DeliveryStatus;
 import webtech.mid.fuel_flow.repository.DeliveryRepository;
@@ -55,6 +56,10 @@ public boolean isAttendantBooked(Delivery delivery) {
 
 public List<Delivery> getBetween(LocalDate start, LocalDate end) {
     return deliveryRepository.findByDeliveryDateBetweenOrderByDeliveryDateAsc(start, end);
+}
+
+public List<Object[]> countByStatus() {
+    return deliveryRepository.countByStatus();
 }
 
     public Optional<Delivery> getById(UUID id) {
@@ -108,4 +113,12 @@ public String delete(UUID id) {
     deliveryRepository.deleteById(id);
     return "Delivery deleted successfully";
 }
+
+@Transactional
+public String cancelDay(UUID attendantId, LocalDate date) {
+    int cancelled = deliveryRepository.cancelDay(attendantId, date);
+    return cancelled + " deliveries cancelled";
+}
+
+
 }
